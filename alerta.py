@@ -124,13 +124,13 @@ async def gitlab_webhook(request: Request):
             if fila_destino[0] =="Triado" or fila_anterior[0] =="New"  :
                 integrador = #Responsavel da triagem
             elif fila_anterior[0] =="Desenvolvimento"  :
-                integrador = timelogs[0]["Integrador"]
+                 integrador = next((item.get("Integrador") for item in timelogs if item.get("Integrador")), "Sem integrador") 
             elif fila_anterior[0] =="Code Review":
                 integrador = #Responsavel do review1
                 integrador2 = #Responsavel do review2
                 integrador3 = #Responsavel do review3
             else:
-                integrador = timelogs[0]["Integrador"]
+                 integrador = next((item.get("Integrador") for item in timelogs if item.get("Integrador")), "Sem integrador") 
 
             if (fila_destino[0] =="Triado" or fila_anterior[0] =="New") and ultimo_summary != "Triagem"  :
                 alerta = f"Lançar tempo de triagem no chamado: {chamado}"
